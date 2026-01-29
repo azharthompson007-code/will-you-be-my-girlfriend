@@ -1,82 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Important Question 💖</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #ffe6f0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zea ❤️</title>
 
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(#ffdde1, #ee9ca7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    text-align: center;
+    overflow: hidden;
+  }
 
-    img {
-      width: 250px;
-      margin-bottom: 20px;
-    }
+  h1 {
+    font-size: 2rem;
+    padding: 0 20px;
+    color: #b30059;
+  }
 
-    .buttons {
-      display: flex;
-      gap: 20px;
-    }
+  img {
+    width: 240px;
+    max-width: 80%;
+    margin: 20px 0;
+  }
 
-    button {
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
+  .buttons {
+    display: flex;
+    gap: 15px;
+  }
 
-    #yesBtn {
-      background-color: #ff4d88;
-      color: white;
-    }
+  button {
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
 
-    #noBtn {
-      background-color: #ccc;
-    }
-  </style>
+  #yesBtn {
+    background: #ff3366;
+    color: white;
+  }
+
+  #noBtn {
+    background: #ffffffaa;
+  }
+</style>
 </head>
+
 <body>
 
-  <h1>Will you be my girlfriend? 💕</h1>
-  <img id="gif" src="gif1.gif" alt="Cute gif">
+<h1>Will you be my Valentine, Zea? ❤️</h1>
 
-  <div class="buttons">
-    <button id="yesBtn" onclick="sayYes()">Yes 💖</button>
-    <button id="noBtn" onclick="sayNo()">No 😐</button>
-  </div>
+<img id="gif" src="gif1.gif" alt="cute">
 
-  <script>
-    let yesSize = 1;
+<div class="buttons">
+  <button id="yesBtn">Yes 💖</button>
+  <button id="noBtn">No 😐</button>
+</div>
 
-    function sayNo() {
-      yesSize += 0.3;
-      const yesBtn = document.getElementById("yesBtn");
-      yesBtn.style.transform = `scale(${yesSize})`;
-    }
+<audio id="noSound" src="no.mp3"></audio>
+<audio id="yesSound" src="yes.mp3"></audio>
 
-    function sayYes() {
-      document.body.innerHTML = `
-        <h1>I KNEW IT 😭💖</h1>
-        <img src="gif2.gif" style="width:300px;">
-        <h2>You’re officially my girlfriend ❤️</h2>
-      `;
-    }
-  </script>
+<script>
+  let scale = 1;
+
+  document.getElementById("noBtn").addEventListener("click", () => {
+    scale += 0.25;
+    document.getElementById("yesBtn").style.transform = `scale(${scale})`;
+    document.getElementById("noSound").play();
+  });
+
+  document.getElementById("yesBtn").addEventListener("click", () => {
+    document.getElementById("yesSound").play();
+    document.body.innerHTML = `
+      <h1>YAYYY 😭💘</h1>
+      <img src="gif2.gif" style="width:280px;">
+      <h2>You’re my Valentine, Zea ❤️</h2>
+    `;
+  });
+</script>
 
 </body>
 </html>
