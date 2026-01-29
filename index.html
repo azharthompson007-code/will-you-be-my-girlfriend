@@ -40,7 +40,7 @@
   .buttons {
     position: relative;
     width: 100%;
-    height: 120px;
+    height: 140px;
   }
 
   button {
@@ -63,6 +63,7 @@
   #noBtn {
     background: #ffffffaa;
     left: 20%;
+    top: 60px;
   }
 </style>
 </head>
@@ -79,16 +80,16 @@
   <button id="noBtn">No 😐</button>
 </div>
 
-<audio id="noSound" src="no.mp3"></audio>
-<audio id="yesSound" src="yes.mp3"></audio>
+<audio id="noSound" src="no.mp3" preload="auto"></audio>
+<audio id="yesSound" src="yes.mp3" preload="auto"></audio>
 
 <script>
-  // COUNTDOWN
+  // -------- COUNTDOWN --------
   const valentinesDay = new Date(new Date().getFullYear(), 1, 14);
 
   function updateCountdown() {
     const now = new Date();
-    const diff = valentinesDay - now;
+    let diff = valentinesDay - now;
 
     if (diff <= 0) {
       document.getElementById("countdown").innerText =
@@ -104,10 +105,10 @@
       `Valentine’s Day in ${d}d ${h}h ${m}m 💕`;
   }
 
-  setInterval(updateCountdown, 1000);
   updateCountdown();
+  setInterval(updateCountdown, 1000);
 
-  // BUTTON LOGIC
+  // -------- BUTTON LOGIC --------
   let scale = 1;
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
@@ -117,7 +118,7 @@
     yesBtn.style.transform = `translateX(-50%) scale(${scale})`;
 
     const maxX = window.innerWidth - noBtn.offsetWidth;
-    const maxY = 100;
+    const maxY = 90;
 
     const randomX = Math.random() * maxX;
     const randomY = Math.random() * maxY;
@@ -125,16 +126,23 @@
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
 
-    document.getElementById("noSound").play();
+    const noSound = document.getElementById("noSound");
+    noSound.currentTime = 0;
+    noSound.play();
   });
 
   yesBtn.addEventListener("click", () => {
-    document.getElementById("yesSound").play();
-    document.body.innerHTML = `
-      <h1>YAYYY 😭💘</h1>
-      <img src="gif2.gif" style="width:280px;">
-      <h2>You’re my Valentine, Zea ❤️</h2>
-    `;
+    const yesSound = document.getElementById("yesSound");
+    yesSound.currentTime = 0;
+    yesSound.play();
+
+    setTimeout(() => {
+      document.body.innerHTML = `
+        <h1>YAYYY 😭💘</h1>
+        <img src="gif2.gif" style="width:280px;">
+        <h2>You’re my Valentine, Zea ❤️</h2>
+      `;
+    }, 300);
   });
 </script>
 
