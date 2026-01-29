@@ -25,6 +25,12 @@
     color: #b30059;
   }
 
+  #countdown {
+    font-size: 1.1rem;
+    margin-top: 10px;
+    color: #7a003c;
+  }
+
   img {
     width: 240px;
     max-width: 80%;
@@ -32,8 +38,9 @@
   }
 
   .buttons {
-    display: flex;
-    gap: 15px;
+    position: relative;
+    width: 100%;
+    height: 120px;
   }
 
   button {
@@ -42,16 +49,20 @@
     border-radius: 14px;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    position: absolute;
   }
 
   #yesBtn {
     background: #ff3366;
     color: white;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   #noBtn {
     background: #ffffffaa;
+    left: 20%;
   }
 </style>
 </head>
@@ -59,6 +70,7 @@
 <body>
 
 <h1>Will you be my Valentine, Zea? ❤️</h1>
+<div id="countdown"></div>
 
 <img id="gif" src="gif1.gif" alt="cute">
 
@@ -71,15 +83,52 @@
 <audio id="yesSound" src="yes.mp3"></audio>
 
 <script>
-  let scale = 1;
+  // COUNTDOWN
+  const valentinesDay = new Date(new Date().getFullYear(), 1, 14);
 
-  document.getElementById("noBtn").addEventListener("click", () => {
+  function updateCountdown() {
+    const now = new Date();
+    const diff = valentinesDay - now;
+
+    if (diff <= 0) {
+      document.getElementById("countdown").innerText =
+        "It’s Valentine’s Day 💘";
+      return;
+    }
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+
+    document.getElementById("countdown").innerText =
+      `Valentine’s Day in ${d}d ${h}h ${m}m 💕`;
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // BUTTON LOGIC
+  let scale = 1;
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+
+  noBtn.addEventListener("click", () => {
     scale += 0.25;
-    document.getElementById("yesBtn").style.transform = `scale(${scale})`;
+    yesBtn.style.transform = `translateX(-50%) scale(${scale})`;
+
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = 100;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+
     document.getElementById("noSound").play();
   });
 
-  document.getElementById("yesBtn").addEventListener("click", () => {
+  yesBtn.addEventListener("click", () => {
     document.getElementById("yesSound").play();
     document.body.innerHTML = `
       <h1>YAYYY 😭💘</h1>
